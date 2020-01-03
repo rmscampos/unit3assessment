@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Wish List</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1 class="center">Wish List Items</h1>
+    <form class="pure-form" action="" method="post">
+      {% csrf_token %}
+      <table class="pure-table pure-table-striped">
+        <thead>
+          {% for item in items %}
+          <tr>
+            <th>Description</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+          <tr>
+            <td>Description {{ item.description }} </td>
+            <td><a href="{% url 'items_delete' item.id %}">X</a></td>
+          </tr>
+        {% empty %}
+          <h3>No Wish List Items Exist</h3>
+        {% endfor %}
+        </table>
+        </form>
+<hr>
+
+<a class="pure-button" href="{% url 'items_create' %}">Add Item</a>
+
+</body>
+</html>
